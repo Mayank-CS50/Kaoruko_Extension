@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Redirect YouTube & WhatsApp",
+  "version": "1.0",
+  "description": "Redirects YouTube and WhatsApp to Google.com",
+  "permissions": ["scripting","tabs"],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://web.whatsapp.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources":[
+    {
+        "resources":["FocusKaoru.png","k1.mp4","k2.mp4","k3.mp4","trying1.html","trying2.html","trying3.html","style.css"],
+        "matches":["<all_urls>"]
+    }
+  ]
+}
