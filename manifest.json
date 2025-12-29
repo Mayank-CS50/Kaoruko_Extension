@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Redirect YouTube & WhatsApp",
-  "version": "1.0",
-  "description": "Redirects YouTube and WhatsApp to Google.com",
+  "name": "Focusing Kaoruko",
+  "version": "1.4",
+  "description": "Helps avoid absent minded opening distractious sites of Urs <3",
   "permissions": ["scripting","tabs"],
   "content_scripts": [
     {
@@ -15,8 +15,12 @@
   ],
   "web_accessible_resources":[
     {
-        "resources":["FocusKaoru.png","k1.mp4","k2.mp4","k3.mp4","trying1.html","trying2.html","trying3.html","style.css"],
+        "resources":["FocusKaoru.png","k1.mp4","k2.mp4","k3.mp4","trying1.html","trying2.html","trying3.html","style.css","icon256.png","icon128.png"],
         "matches":["<all_urls>"]
     }
-  ]
+  ],
+  "icons":{
+    "128":"icon128.png",
+    "256":"icon256.png"
+  }
 }
