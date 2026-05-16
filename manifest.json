@@ -3,24 +3,34 @@
   "name": "Focusing Kaoruko",
   "version": "1.4",
   "description": "Helps avoid absent minded opening distractious sites of Urs <3",
-  "permissions": ["scripting","tabs"],
+  "permissions": ["scripting","tabs","storage"],
   "content_scripts": [
     {
       "matches": [
         "https://www.youtube.com/*",
-        "https://web.whatsapp.com/*"
+        "https://web.whatsapp.com/*",
+        "https://www.instagram.com/*"
       ],
       "js": ["content.js"]
     }
   ],
   "web_accessible_resources":[
     {
-        "resources":["FocusKaoru.png","k1.mp4","k2.mp4","k3.mp4","trying1.html","trying2.html","trying3.html","style.css","icon256.png","icon128.png"],
+        "resources":["nope.mp3","faaah.mp3","another.html","FocusKaoru.png","k1.mp4","k2.mp4","k3.mp4","trying1.html","trying2.html","trying3.html","style.css","icon256.png","icon128.png", "popup.html","popup.js"],
         "matches":["<all_urls>"]
     }
   ],
   "icons":{
     "128":"icon128.png",
     "256":"icon256.png"
-  }
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon128.png"
+  },
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://web.whatsapp.com/*",
+    "https://www.instagram.com/*"
+  ]
 }

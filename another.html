@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nahi !</title>
+    <style>
+       body{
+        background-color:black;
+       }
+    </style>
+</head>
+<body>
+    <audio src="faaah.mp3" autoplay="true"></audio>
+    <script>
+        chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+            setTimeout(() => {
+                chrome.tabs.remove(tabId);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
