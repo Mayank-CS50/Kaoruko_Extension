@@ -2,10 +2,11 @@ let blockTimeout = null;
 let siteAutoBlockTimeouts = {};
 
 function checkAndRedirect() {
-    chrome.storage.local.get(['kaoruko_enabled', 'kaoruko_delay', 'kaoruko_sites', 'kaoruko_site_timers'], function(result) {
+    chrome.storage.local.get(['kaoruko_enabled', 'kaoruko_delay', 'kaoruko_sites', 'kaoruko_site_timers', 'kaoruko_excluded_sites'], function(result) {
         const enabled = Boolean(result.kaoruko_enabled);
         const delay = result.kaoruko_delay !== undefined ? result.kaoruko_delay * 1000 : 2000;
         const sites = result.kaoruko_sites || { youtube: true, whatsapp: true, instagram: true };
+        const excluded = result.kaoruko_excluded_sites || { youtube: false, whatsapp: false, instagram: false };
         const siteTimers = result.kaoruko_site_timers || {};
         
         const url = window.location.href;
@@ -23,7 +24,9 @@ function checkAndRedirect() {
         let shouldBlock = false;
 
         if (matchedSite) {
-            if (sites[matchedSite]) {
+            if (excluded[matchedSite]) {
+                shouldBlock = false;
+            } else if (sites[matchedSite]) {
                 shouldBlock = true;
             } else if (siteTimers[matchedSite]) {
                 const now = Date.now();

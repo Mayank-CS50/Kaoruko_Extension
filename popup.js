@@ -8,23 +8,41 @@ document.addEventListener('DOMContentLoaded', function() {
     const delaySlider = document.getElementById('delaySlider');
     const delayValue = document.getElementById('delayValue');
     const siteConfig = {
-        youtube: { checkbox: document.getElementById('toggleYoutube'), timerEl: document.getElementById('timerYoutube') },
-        whatsapp: { checkbox: document.getElementById('toggleWhatsapp'), timerEl: document.getElementById('timerWhatsapp') },
-        instagram: { checkbox: document.getElementById('toggleInstagram'), timerEl: document.getElementById('timerInstagram') }
+        youtube: { 
+            checkbox: document.getElementById('toggleYoutube'), 
+            excludeCheckbox: document.getElementById('excludeYoutube'),
+            timerEl: document.getElementById('timerYoutube') 
+        },
+        whatsapp: { 
+            checkbox: document.getElementById('toggleWhatsapp'), 
+            excludeCheckbox: document.getElementById('excludeWhatsapp'),
+            timerEl: document.getElementById('timerWhatsapp') 
+        },
+        instagram: { 
+            checkbox: document.getElementById('toggleInstagram'), 
+            excludeCheckbox: document.getElementById('excludeInstagram'),
+            timerEl: document.getElementById('timerInstagram') 
+        }
     };
 
     let siteTimersInterval = null;
 
-    chrome.storage.local.get(['kaoruko_delay', 'kaoruko_sites'], function(result) {
+    chrome.storage.local.get(['kaoruko_delay', 'kaoruko_sites', 'kaoruko_excluded_sites'], function(result) {
         if (result.kaoruko_delay !== undefined) {
             delaySlider.value = result.kaoruko_delay;
             delayValue.textContent = result.kaoruko_delay;
         }
-        if (result.kaoruko_sites) {
-            siteConfig.youtube.checkbox.checked = result.kaoruko_sites.youtube;
-            siteConfig.whatsapp.checkbox.checked = result.kaoruko_sites.whatsapp;
-            siteConfig.instagram.checkbox.checked = result.kaoruko_sites.instagram;
-        }
+        
+        const excluded = result.kaoruko_excluded_sites || { youtube: false, whatsapp: false, instagram: false };
+        const sites = result.kaoruko_sites || { youtube: true, whatsapp: true, instagram: true };
+
+        Object.keys(siteConfig).forEach(site => {
+            const isExcluded = Boolean(excluded[site]);
+            siteConfig[site].excludeCheckbox.checked = isExcluded;
+            siteConfig[site].checkbox.checked = sites[site];
+            siteConfig[site].checkbox.disabled = isExcluded;
+        });
+
         updateSiteTimersDisplay();
         if (!siteTimersInterval) {
             siteTimersInterval = setInterval(updateSiteTimersDisplay, 1000);
@@ -35,6 +53,40 @@ document.addEventListener('DOMContentLoaded', function() {
         delayValue.textContent = this.value;
         chrome.storage.local.set({ kaoruko_delay: parseInt(this.value) });
     });
+
+    function saveExcludeState(site) {
+        chrome.storage.local.get(['kaoruko_excluded_sites', 'kaoruko_sites', 'kaoruko_site_timers'], function(result) {
+            const excluded = result.kaoruko_excluded_sites || { youtube: false, whatsapp: false, instagram: false };
+            const sites = result.kaoruko_sites || { youtube: true, whatsapp: true, instagram: true };
+            const timers = result.kaoruko_site_timers || {};
+
+            const isExcluded = siteConfig[site].excludeCheckbox.checked;
+            excluded[site] = isExcluded;
+
+            if (isExcluded) {
+                // When excluded: uncheck block checkbox, disable it, and remove any active timer
+                siteConfig[site].checkbox.checked = false;
+                siteConfig[site].checkbox.disabled = true;
+                sites[site] = false;
+                delete timers[site];
+            } else {
+                // When not excluded: re-enable block checkbox, and set it to checked (block it)
+                siteConfig[site].checkbox.disabled = false;
+                siteConfig[site].checkbox.checked = true;
+                sites[site] = true;
+                delete timers[site];
+            }
+
+            chrome.storage.local.set({ 
+                kaoruko_excluded_sites: excluded, 
+                kaoruko_sites: sites, 
+                kaoruko_site_timers: timers 
+            }, function() {
+                updateSiteTimersDisplay();
+                reloadActiveTab();
+            });
+        });
+    }
 
     function saveSiteState(site) {
         chrome.storage.local.get(['kaoruko_sites', 'kaoruko_site_timers'], function(result) {
@@ -59,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Object.keys(siteConfig).forEach(site => {
         siteConfig[site].checkbox.addEventListener('change', () => saveSiteState(site));
+        siteConfig[site].excludeCheckbox.addEventListener('change', () => saveExcludeState(site));
     });
 
     function updateSiteTimersDisplay() {
