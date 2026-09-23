@@ -3,7 +3,11 @@
   "name": "FocusKaoruko - Mindful Browsing Assistant",
   "version": "1.4.0",
   "description": "Injects intentional friction, reflection prompts, and customizable timers to curb mindless social media distractions.",
-  "permissions": ["scripting", "tabs", "storage"],
+  "permissions": [
+    "scripting",
+    "tabs",
+    "storage"
+  ],
   "content_scripts": [
     {
       "matches": [
@@ -11,40 +15,44 @@
         "https://web.whatsapp.com/*",
         "https://www.instagram.com/*"
       ],
-      "js": ["content.js"]
+      "js": [
+        "content.js"
+      ]
     }
   ],
   "web_accessible_resources": [
     {
       "resources": [
-        "faaah.mp3",
-        "another.html",
-        "FocusKaoru.png",
-        "k1.mp4",
-        "k2.mp4",
-        "k3.mp4",
-        "trying1.html",
-        "trying2.html",
-        "trying3.html",
-        "t1.js",
-        "t2.js",
-        "t3.js",
+        "assets/audio/faaah.mp3",
+        "assets/images/FocusKaoru.png",
+        "assets/images/icon128.png",
+        "assets/images/icon256.png",
+        "assets/videos/k1.mp4",
+        "assets/videos/k2.mp4",
+        "assets/videos/k3.mp4",
+        "pages/another.html",
+        "pages/trying1.html",
+        "pages/trying2.html",
+        "pages/trying3.html",
+        "js/t1.js",
+        "js/t2.js",
+        "js/t3.js",
         "style.css",
-        "icon256.png",
-        "icon128.png",
         "popup.html",
         "popup.js"
       ],
-      "matches": ["<all_urls>"]
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ],
   "icons": {
-    "128": "icon128.png",
-    "256": "icon256.png"
+    "128": "assets/images/icon128.png",
+    "256": "assets/images/icon256.png"
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon128.png"
+    "default_icon": "assets/images/icon128.png"
   },
   "host_permissions": [
     "https://www.youtube.com/*",

@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "npx eslint content.js popup.js --no-error-on-unmatched-pattern",
     "format": "npx prettier --write \"**/*.{js,html,css,json,md}\"",
-    "zip": "powershell Compress-Archive -Path manifest.json, content.js, popup.html, popup.js, style.css, trying1.html, trying2.html, trying3.html, t1.js, t2.js, t3.js, another.html, FocusKaoru.png, faaah.mp3, icon128.png, icon256.png, k1.mp4, k2.mp4, k3.mp4 -DestinationPath focus-kaoruko-v1.4.0.zip -Force"
+    "zip": "powershell Compress-Archive -Path manifest.json, content.js, popup.html, popup.js, style.css, pages, js, assets -DestinationPath focus-kaoruko-v1.4.0.zip -Force"
   },
   "keywords": [
     "chrome-extension",

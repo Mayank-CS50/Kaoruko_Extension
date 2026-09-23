@@ -51,7 +51,7 @@ function checkAndRedirect() {
 
         if (enabled && shouldBlock) {
             blockTimeout = setTimeout(() => {
-                window.location.href = chrome.runtime.getURL("trying1.html");
+                window.location.href = chrome.runtime.getURL("pages/trying1.html");
             }, delay);
         }
     });
