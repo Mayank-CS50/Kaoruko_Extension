@@ -1,0 +1,28 @@
+# Clutter & Temporary Files
+_archive_clutter/
+*.tmp
+*.log
+tempCodeRunnerFile.py
+
+# Dependencies & Build Artifacts
+node_modules/
+dist/
+build/
+*.zip
+*.crx
+
+# Environment & Secret Files
+.env
+.env.local
+.env.*.local
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo

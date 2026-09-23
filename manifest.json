@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Focusing Kaoruko",
-  "version": "1.4",
-  "description": "Helps avoid absent minded opening distractious sites of Urs <3",
-  "permissions": ["scripting","tabs","storage"],
+  "name": "FocusKaoruko - Mindful Browsing Assistant",
+  "version": "1.4.0",
+  "description": "Injects intentional friction, reflection prompts, and customizable timers to curb mindless social media distractions.",
+  "permissions": ["scripting", "tabs", "storage"],
   "content_scripts": [
     {
       "matches": [
@@ -14,15 +14,33 @@
       "js": ["content.js"]
     }
   ],
-  "web_accessible_resources":[
+  "web_accessible_resources": [
     {
-        "resources":["nope.mp3","faaah.mp3","another.html","FocusKaoru.png","k1.mp4","k2.mp4","k3.mp4","trying1.html","trying2.html","trying3.html","style.css","icon256.png","icon128.png", "popup.html","popup.js"],
-        "matches":["<all_urls>"]
+      "resources": [
+        "faaah.mp3",
+        "another.html",
+        "FocusKaoru.png",
+        "k1.mp4",
+        "k2.mp4",
+        "k3.mp4",
+        "trying1.html",
+        "trying2.html",
+        "trying3.html",
+        "t1.js",
+        "t2.js",
+        "t3.js",
+        "style.css",
+        "icon256.png",
+        "icon128.png",
+        "popup.html",
+        "popup.js"
+      ],
+      "matches": ["<all_urls>"]
     }
   ],
-  "icons":{
-    "128":"icon128.png",
-    "256":"icon256.png"
+  "icons": {
+    "128": "icon128.png",
+    "256": "icon256.png"
   },
   "action": {
     "default_popup": "popup.html",

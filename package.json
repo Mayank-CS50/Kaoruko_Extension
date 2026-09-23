@@ -1,0 +1,30 @@
+{
+  "name": "focus-kaoruko",
+  "version": "1.4.0",
+  "description": "A Manifest V3 Chrome Extension that injects intentional friction, video reflection prompts, customizable timers, and site exclusions to block mindless social media distractions.",
+  "main": "content.js",
+  "scripts": {
+    "lint": "npx eslint content.js popup.js --no-error-on-unmatched-pattern",
+    "format": "npx prettier --write \"**/*.{js,html,css,json,md}\"",
+    "zip": "powershell Compress-Archive -Path manifest.json, content.js, popup.html, popup.js, style.css, trying1.html, trying2.html, trying3.html, t1.js, t2.js, t3.js, another.html, FocusKaoru.png, faaah.mp3, icon128.png, icon256.png, k1.mp4, k2.mp4, k3.mp4 -DestinationPath focus-kaoruko-v1.4.0.zip -Force"
+  },
+  "keywords": [
+    "chrome-extension",
+    "manifest-v3",
+    "productivity",
+    "focus",
+    "mindfulness",
+    "distraction-blocker",
+    "intentional-friction"
+  ],
+  "author": "Mayank",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mayank-CS50/focus-kaoruko.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mayank-CS50/focus-kaoruko/issues"
+  },
+  "homepage": "https://github.com/Mayank-CS50/focus-kaoruko#readme"
+}
